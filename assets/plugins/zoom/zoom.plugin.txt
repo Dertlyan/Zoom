@@ -1,0 +1,18 @@
+$options = array(
+ 'basePath' => MODX_BASE_PATH,
+ 'capUrl' => 'assets/images/0.png'
+);
+include_once(MODX_BASE_PATH.'assets/plugins/zoom/zoom.class.php');
+$zoom = new YZoom($options);
+$e = &$modx->Event;
+switch($e->name) {
+ case 'OnWebPagePrerender':
+  $zoom->process($modx->documentOutput);
+  break;
+ case 'OnPageNotFound':
+  if(preg_match("/\.(jpe?g|png|gif|ico)$/i", $_GET['q'])) {
+   $zoom->redirect();
+  }
+  break;
+}
+unset($zoom);

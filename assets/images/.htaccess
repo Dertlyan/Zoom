@@ -1,5 +1,5 @@
 <IfModule mod_rewrite.c>
   RewriteEngine on
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule .*\.(jp.?g|png|gif)$ /assets/images/.index.php?q=$0 [NC,L,QSA]
+  RewriteRule .*\.(jpe?g|png|gif)$ /assets/images/.index.php?q=$0 [NC,L,QSA]
 </IfModule>
