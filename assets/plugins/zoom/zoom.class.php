@@ -160,15 +160,15 @@ class YZoom {
 	
 	// Proportional resizing
 	$kw = $kh = 0;
-	if($dw/$dh < $sw/$sh) $kh = $dh - intval($dh/($sw/$sh))/($dh/$dw);
-	elseif($dw/$dh > $sw/$sh) $kw = $dw - (intval($dw*($sw/$sh))/($dw/$dh));
+	if($dw/$dh < $sw/$sh) $kh = $dh - $dh/($sw/$sh)/($dh/$dw);
+	elseif($dw/$dh > $sw/$sh) $kw = $dw - ($dw*($sw/$sh))/($dw/$dh);
 	
 	$src = $this->image($source);
 	$dst = imagecreatetruecolor($dw, $dh);
 	imagefill($dst, 0, 0, imagecolorallocate($dst,255,255,255));
 	//imagealphablending($dst, false);
 	//imagesavealpha($dst, true);
-	imagecopyresampled($dst, $src, 0+intval($kw/2), 0+intval($kh/2), $x, $y, $dw-$kw, $dh-$kh, $sw, $sh);
+	if($src) imagecopyresampled($dst, $src, round($kw/2), round($kh/2), $x, $y, round($dw-$kw), round($dh-$kh), $sw, $sh);
 	// Save thumbnail
 	$this->image($source, $dst, $destination, $quality);
 
